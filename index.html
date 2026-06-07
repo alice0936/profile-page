@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <!--
+    [문서 기본 설정]
+    - lang="ko": 이 페이지의 주요 언어가 한국어임을 브라우저에 알려줍니다.
+    - charset: 한글이 깨지지 않도록 문자 인코딩을 지정합니다.
+    - viewport: 모바일 기기에서도 화면 너비에 맞게 보이도록 합니다.
+  -->
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="description" content="백엔드·빅데이터 개발자 양예란의 자기소개 페이지">
+  <title>양예란 (YeRan)</title>
+
+  <!--
+    [웹 폰트]
+    Pretendard: 깔끔한 한글 산세리프 폰트 (참고 포트폴리오와 비슷한 느낌)
+  -->
+  <link rel="stylesheet" as="style" crossorigin
+    href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css">
+
+  <!-- 디자인은 styles.css, 동작은 script.js에서 관리합니다 -->
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <a class="skip-link" href="#main-content">본문으로 바로가기</a>
+
+  <!--
+    [상단 헤더]
+    참고 사이트처럼 오른쪽에 메뉴 + pill 버튼, 아래에 스크롤 진행 바가 있습니다.
+  -->
+  <header class="site-header" id="site-header">
+    <div class="container header-inner">
+      <a class="brand" href="#hero" aria-label="맨 위로 이동">Portfolio</a>
+
+      <button
+        class="menu-toggle"
+        id="menu-toggle"
+        type="button"
+        aria-expanded="false"
+        aria-controls="site-nav"
+        aria-label="메뉴 열기"
+      >
+        <span class="menu-toggle-bar"></span>
+        <span class="menu-toggle-bar"></span>
+        <span class="menu-toggle-bar"></span>
+      </button>
+
+      <nav class="site-nav" id="site-nav" aria-label="주요 메뉴">
+        <ul class="nav-list">
+          <li><a class="nav-link" href="#about" data-section="about">About</a></li>
+          <li><a class="nav-link" href="#experience" data-section="experience">Experience</a></li>
+          <li><a class="nav-link" href="#goals" data-section="goals">Goals</a></li>
+          <li><a class="nav-link" href="#contact" data-section="contact">Contact</a></li>
+          <li>
+            <a class="nav-pill" href="#about">More</a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+
+    <!-- 스크롤을 내릴수록 채워지는 진행 바 (script.js가 너비를 조절) -->
+    <div class="scroll-progress" aria-hidden="true">
+      <div class="scroll-progress-bar" id="scroll-progress-bar"></div>
+    </div>
+  </header>
+
+  <main id="main-content">
+
+    <!--
+      [히어로 섹션]
+      참고 사이트처럼 프로필 원형 이미지 + 인사말을 가운데 배치합니다.
+    -->
+    <section class="section hero" id="hero" aria-labelledby="hero-greeting">
+      <div class="container hero-layout">
+        <div class="hero-avatar" aria-hidden="true">
+          <div class="hero-avatar-circle">
+            <span class="hero-avatar-initial">YR</span>
+          </div>
+        </div>
+
+        <div class="hero-content">
+          <p class="hero-greeting" id="hero-greeting">안녕하세요 :)</p>
+          <p class="hero-name">백엔드·빅데이터 개발자 <strong>양예란</strong>입니다.</p>
+          <p class="hero-desc">
+            비전공자로 시작했지만 4년간의 실무 경험을 통해 빅데이터 처리·분석·백엔드 시스템 개발 역량을 쌓았습니다.
+            대용량 데이터 플랫폼 운영과 통계 시스템 개발에 열정을 가지고 있습니다.
+          </p>
+          <a class="pill-btn" href="#about">More</a>
+        </div>
+      </div>
+    </section>
+
+    <!--
+      [About 섹션]
+      왼쪽: 이미지 슬라이더 / 오른쪽: 기본 정보 + 장점·단점 탭
+    -->
+    <section class="section section-white" id="about" aria-labelledby="about-title">
+      <div class="container">
+        <h2 class="section-heading" id="about-title">About.</h2>
+
+        <div class="about-layout">
+          <!-- 슬라이더: 지원 동기·생활신조 등을 카드 형태로 보여 줍니다 -->
+          <div class="about-slider">
+            <div class="slider-viewport">
+              <div class="slider-track" id="about-slider-track">
+                <!-- script.js가 슬라이드 내용을 채웁니다 -->
+              </div>
+            </div>
+            <div class="slider-controls">
+              <button class="slider-btn" id="slider-prev" type="button" aria-label="이전 슬라이드">◀</button>
+              <button class="slider-btn" id="slider-next" type="button" aria-label="다음 슬라이드">▶</button>
+            </div>
+          </div>
+
+          <div class="about-info">
+            <!-- 기본 프로필 정보 표 -->
+            <dl class="info-list" id="about-info-list">
+              <!-- script.js가 채웁니다 -->
+            </dl>
+
+            <!-- 장점 / 단점 탭 버튼 (참고 사이트의 취미·성격 버튼과 같은 역할) -->
+            <div class="trait-tabs" role="tablist" aria-label="성격 정보">
+              <button class="trait-tab is-active" type="button" role="tab" aria-selected="true"
+                data-tab="strength" id="tab-strength">
+                <span class="trait-tab-icon" aria-hidden="true">💪</span>
+                <span>장점</span>
+              </button>
+              <button class="trait-tab" type="button" role="tab" aria-selected="false"
+                data-tab="weakness" id="tab-weakness">
+                <span class="trait-tab-icon" aria-hidden="true">🌱</span>
+                <span>단점</span>
+              </button>
+            </div>
+
+            <!-- 탭을 누르면 아래 내용이 바뀝니다 -->
+            <div class="trait-panel" id="trait-panel" role="tabpanel" aria-labelledby="tab-strength">
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!--
+      [Experience 섹션]
+      참고 사이트의 Project 섹션과 같은 카드형 레이아웃입니다.
+    -->
+    <section class="section section-muted" id="experience" aria-labelledby="experience-title">
+      <div class="container">
+        <h2 class="section-heading" id="experience-title">Experience.</h2>
+        <div class="project-list" id="experience-list">
+          <!-- script.js가 경험 카드를 채웁니다 -->
+        </div>
+      </div>
+    </section>
+
+    <!--
+      [Goals 섹션]
+      입사 후 포부를 단계별 카드로 보여 줍니다.
+    -->
+    <section class="section section-white" id="goals" aria-labelledby="goals-title">
+      <div class="container">
+        <h2 class="section-heading" id="goals-title">Goals.</h2>
+        <div class="goal-grid" id="goal-grid">
+          <!-- script.js가 포부 카드를 채웁니다 -->
+        </div>
+      </div>
+    </section>
+
+    <!-- [Contact 섹션] -->
+    <section class="section section-muted" id="contact" aria-labelledby="contact-title">
+      <div class="container">
+        <h2 class="section-heading" id="contact-title">Contact.</h2>
+        <div class="contact-box">
+          <p class="contact-message">
+            빅데이터·백엔드 분야에서 함께 성장하며 의미 있는 프로젝트를 만들고 싶습니다.<br>
+            언제든지 연락 주세요.
+          </p>
+          <ul class="contact-links">
+            <li>
+              <a class="contact-link" href="mailto:yangyeran@example.com">Email</a>
+            </li>
+            <li>
+              <a class="contact-link" href="https://github.com" target="_blank" rel="noopener noreferrer">GitHub</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="site-footer">
+    <div class="container">
+      <p class="footer-text">
+        &copy; <span id="current-year"></span> - YeRan
+      </p>
+    </div>
+  </footer>
+
+  <!-- 맨 위로 이동 버튼 (참고 사이트의 동그란 화살표 버튼) -->
+  <button class="scroll-top" id="scroll-top" type="button" aria-label="맨 위로 이동">
+    <span aria-hidden="true">▲</span>
+  </button>
+
+  <script src="script.js"></script>
+</body>
+</html>

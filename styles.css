@@ -1,0 +1,854 @@
+/*
+  ============================================================
+  김민수 자기소개 페이지 - 스타일시트
+  참고: https://hyerrin.github.io/portfolio/
+  ============================================================
+
+  [디자인 컨셉]
+  - 연보라(periwinkle) 포인트 컬러 + 연한 라벤더 배경
+  - 둥근 모서리, 넉넉한 여백, pill(알약) 형태 버튼
+  - About / Experience / Goals / Contact 섹션 구분
+
+  [리팩토링 팁]
+  :root 변수만 수정하면 색상·간격을 한꺼번에 바꿀 수 있습니다.
+*/
+
+/* ------------------------------------------------------------
+   1. 디자인 토큰 — 참고 사이트 색상을 기준으로 설정
+   ------------------------------------------------------------ */
+:root {
+  /* 참고 사이트에서 추출한 핵심 색상 */
+  --color-primary: #6a75ca;
+  --color-primary-light: #8b94d9;
+  --color-primary-dark: #5563b8;
+
+  --color-bg: #eff2f8;
+  --color-bg-white: #ffffff;
+  --color-text: #111111;
+  --color-text-muted: #555555;
+  --color-label: #6a75ca;
+  --color-border: #dde2ef;
+
+  --font-family: "Pretendard", "Apple SD Gothic Neo", "Noto Sans KR", sans-serif;
+
+  --font-size-sm: 0.875rem;
+  --font-size-base: 1rem;
+  --font-size-lg: 1.125rem;
+  --font-size-xl: 1.5rem;
+  --font-size-2xl: 2.5rem;
+  --font-size-hero: clamp(1.75rem, 4vw, 2.75rem);
+
+  --space-xs: 0.5rem;
+  --space-sm: 0.75rem;
+  --space-md: 1rem;
+  --space-lg: 1.5rem;
+  --space-xl: 2rem;
+  --space-2xl: 3rem;
+  --space-3xl: 5rem;
+  --space-4xl: 7rem;
+
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 24px;
+  --radius-pill: 999px;
+  --radius-circle: 50%;
+
+  --shadow-card: 0 8px 32px rgba(106, 117, 202, 0.12);
+  --shadow-soft: 0 4px 16px rgba(0, 0, 0, 0.06);
+
+  --header-height: 72px;
+  --transition: 0.3s ease;
+  --container-width: 1100px;
+}
+
+/* ------------------------------------------------------------
+   2. 기본 초기화
+   ------------------------------------------------------------ */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: var(--font-family);
+  font-size: var(--font-size-base);
+  line-height: 1.65;
+  color: var(--color-text);
+  background-color: var(--color-bg);
+}
+
+img {
+  max-width: 100%;
+  display: block;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+ul,
+ol {
+  list-style: none;
+}
+
+button {
+  font: inherit;
+  cursor: pointer;
+  border: none;
+  background: none;
+}
+
+.skip-link {
+  position: absolute;
+  top: -100%;
+  left: var(--space-md);
+  z-index: 300;
+  padding: var(--space-sm) var(--space-md);
+  background: var(--color-primary);
+  color: #fff;
+  border-radius: var(--radius-sm);
+}
+
+.skip-link:focus {
+  top: var(--space-md);
+}
+
+.container {
+  width: 100%;
+  max-width: var(--container-width);
+  margin: 0 auto;
+  padding: 0 var(--space-xl);
+}
+
+/* ------------------------------------------------------------
+   3. 헤더 & 내비게이션
+   ------------------------------------------------------------ */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 200;
+  background: rgba(239, 242, 248, 0.92);
+  backdrop-filter: blur(12px);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: var(--header-height);
+}
+
+.brand {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--color-primary);
+  letter-spacing: -0.02em;
+}
+
+.nav-list {
+  display: flex;
+  align-items: center;
+  gap: var(--space-xl);
+}
+
+.nav-link {
+  font-size: var(--font-size-base);
+  font-weight: 500;
+  color: var(--color-primary);
+  transition: opacity var(--transition);
+}
+
+.nav-link:hover,
+.nav-link:focus-visible,
+.nav-link.is-active {
+  opacity: 1;
+  font-weight: 700;
+}
+
+/* 참고 사이트의 "code" / "More" pill 버튼 */
+.nav-pill,
+.pill-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0.55rem 1.4rem;
+  background: var(--color-primary);
+  color: #fff;
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+  border-radius: var(--radius-pill);
+  transition: background var(--transition), transform var(--transition);
+}
+
+.nav-pill:hover,
+.pill-btn:hover {
+  background: var(--color-primary-dark);
+  transform: translateY(-1px);
+}
+
+/* 헤더 아래 스크롤 진행 바 */
+.scroll-progress {
+  height: 3px;
+  background: rgba(106, 117, 202, 0.15);
+}
+
+.scroll-progress-bar {
+  height: 100%;
+  width: 0%;
+  background: var(--color-primary);
+  transition: width 0.1s linear;
+}
+
+.menu-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 40px;
+  height: 40px;
+  padding: var(--space-xs);
+}
+
+.menu-toggle-bar {
+  display: block;
+  width: 100%;
+  height: 2px;
+  background: var(--color-primary);
+  border-radius: 2px;
+  transition: transform var(--transition), opacity var(--transition);
+}
+
+.menu-toggle[aria-expanded="true"] .menu-toggle-bar:nth-child(1) {
+  transform: translateY(7px) rotate(45deg);
+}
+
+.menu-toggle[aria-expanded="true"] .menu-toggle-bar:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-toggle[aria-expanded="true"] .menu-toggle-bar:nth-child(3) {
+  transform: translateY(-7px) rotate(-45deg);
+}
+
+/* ------------------------------------------------------------
+   4. 섹션 공통
+   ------------------------------------------------------------ */
+.section {
+  padding: var(--space-4xl) 0;
+}
+
+.section-white {
+  background: var(--color-bg-white);
+}
+
+.section-muted {
+  background: var(--color-bg);
+}
+
+/* 참고 사이트의 "About." / "Project." 제목 스타일 */
+.section-heading {
+  text-align: center;
+  font-size: var(--font-size-2xl);
+  font-weight: 400;
+  color: var(--color-primary);
+  margin-bottom: var(--space-3xl);
+  letter-spacing: -0.02em;
+}
+
+/* 스크롤 등장 애니메이션 */
+.reveal {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.65s ease, transform 0.65s ease;
+}
+
+.reveal.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ------------------------------------------------------------
+   5. 히어로 섹션
+   ------------------------------------------------------------ */
+.hero {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  padding-top: var(--header-height);
+  background: var(--color-bg);
+}
+
+.hero-layout {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3xl);
+  flex-wrap: wrap;
+}
+
+/* 원형 프로필 영역 */
+.hero-avatar-circle {
+  width: clamp(180px, 28vw, 260px);
+  height: clamp(180px, 28vw, 260px);
+  border-radius: var(--radius-circle);
+  background: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-card);
+}
+
+.hero-avatar-initial {
+  font-size: clamp(3rem, 8vw, 4.5rem);
+  font-weight: 700;
+  color: #fff;
+  letter-spacing: 0.05em;
+}
+
+.hero-content {
+  max-width: 480px;
+  text-align: left;
+}
+
+.hero-greeting {
+  font-size: var(--font-size-hero);
+  font-weight: 700;
+  color: var(--color-primary);
+  line-height: 1.3;
+  margin-bottom: var(--space-sm);
+}
+
+.hero-name {
+  font-size: clamp(1.25rem, 3vw, 1.75rem);
+  font-weight: 500;
+  color: var(--color-primary);
+  margin-bottom: var(--space-lg);
+}
+
+.hero-name strong {
+  font-weight: 800;
+}
+
+.hero-desc {
+  font-size: var(--font-size-base);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-xl);
+  line-height: 1.8;
+}
+
+/* ------------------------------------------------------------
+   6. About 섹션
+   ------------------------------------------------------------ */
+.about-layout {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-3xl);
+  align-items: start;
+}
+
+/* 이미지 슬라이더 */
+.about-slider {
+  position: relative;
+}
+
+.slider-viewport {
+  overflow: hidden;
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.slider-track {
+  display: flex;
+  transition: transform 0.45s ease;
+}
+
+.slider-slide {
+  flex: 0 0 100%;
+  min-height: 340px;
+  padding: var(--space-2xl);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  gap: var(--space-md);
+  color: #fff;
+}
+
+.slider-slide--motivation {
+  background: linear-gradient(135deg, #6a75ca 0%, #8b94d9 100%);
+}
+
+.slider-slide--philosophy {
+  background: linear-gradient(135deg, #5563b8 0%, #6a75ca 100%);
+}
+
+.slider-slide--intro {
+  background: linear-gradient(135deg, #7b6fca 0%, #6a75ca 100%);
+}
+
+.slider-slide-label {
+  font-size: var(--font-size-sm);
+  font-weight: 600;
+  opacity: 0.85;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+}
+
+.slider-slide-title {
+  font-size: var(--font-size-xl);
+  font-weight: 700;
+  line-height: 1.4;
+}
+
+.slider-slide-text {
+  font-size: var(--font-size-base);
+  line-height: 1.75;
+  opacity: 0.95;
+}
+
+.slider-controls {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-md);
+  margin-top: var(--space-lg);
+}
+
+.slider-btn {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-circle);
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 0.85rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background var(--transition), opacity var(--transition);
+}
+
+.slider-btn:hover:not(:disabled) {
+  background: var(--color-primary-dark);
+}
+
+.slider-btn:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+
+/* 프로필 정보 목록 */
+.info-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+  margin-bottom: var(--space-2xl);
+}
+
+.info-row {
+  display: grid;
+  grid-template-columns: 110px 1fr;
+  gap: var(--space-md);
+  align-items: baseline;
+}
+
+.info-label {
+  font-weight: 700;
+  color: var(--color-label);
+}
+
+.info-value {
+  color: var(--color-text);
+}
+
+/* 장점 / 단점 탭 */
+.trait-tabs {
+  display: flex;
+  gap: var(--space-xl);
+  margin-bottom: var(--space-lg);
+}
+
+.trait-tab {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-sm);
+  color: var(--color-text-muted);
+  transition: color var(--transition), transform var(--transition);
+}
+
+.trait-tab:hover,
+.trait-tab.is-active {
+  color: var(--color-primary);
+}
+
+.trait-tab-icon {
+  width: 72px;
+  height: 72px;
+  border-radius: var(--radius-circle);
+  background: var(--color-primary);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.75rem;
+  box-shadow: var(--shadow-soft);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.trait-tab.is-active .trait-tab-icon {
+  transform: scale(1.08);
+  box-shadow: var(--shadow-card);
+}
+
+.trait-tab span:last-child {
+  font-weight: 600;
+  font-size: var(--font-size-sm);
+}
+
+.trait-panel {
+  background: var(--color-bg);
+  border-radius: var(--radius-md);
+  padding: var(--space-xl);
+  min-height: 160px;
+}
+
+.trait-panel-title {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--color-text);
+  margin-bottom: var(--space-sm);
+}
+
+.trait-panel-desc {
+  color: var(--color-text-muted);
+  line-height: 1.8;
+}
+
+.trait-panel-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.trait-panel-item strong {
+  display: block;
+  color: var(--color-primary);
+  margin-bottom: 0.2rem;
+}
+
+.trait-panel-item p {
+  color: var(--color-text-muted);
+  font-size: var(--font-size-sm);
+}
+
+/* ------------------------------------------------------------
+   7. Experience (Project 스타일 카드)
+   ------------------------------------------------------------ */
+.project-list {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3xl);
+}
+
+.project-card {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-2xl);
+  background: var(--color-bg-white);
+  border-radius: var(--radius-lg);
+  padding: var(--space-2xl);
+  box-shadow: var(--shadow-card);
+  align-items: center;
+}
+
+.project-visual {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.project-thumb {
+  width: 100%;
+  aspect-ratio: 16 / 10;
+  border-radius: var(--radius-md);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3rem;
+  color: #fff;
+}
+
+.project-thumb--tims {
+  background: linear-gradient(145deg, #2d3748 0%, #4a5568 100%);
+}
+
+.project-thumb--marine {
+  background: linear-gradient(145deg, #1e4d6b 0%, #3b82a8 100%);
+}
+
+.project-thumb--aviation {
+  background: linear-gradient(145deg, #3d4f7c 0%, #6a75ca 100%);
+}
+
+.project-thumb--hazmat {
+  background: linear-gradient(145deg, #5c4033 0%, #8b6914 100%);
+}
+
+.project-thumb--hpc {
+  background: linear-gradient(145deg, #4c1d95 0%, #7c3aed 100%);
+}
+
+.project-detail-btn {
+  width: 100%;
+  padding: 0.85rem;
+  background: var(--color-primary);
+  color: #fff;
+  font-weight: 600;
+  border-radius: var(--radius-pill);
+  transition: background var(--transition);
+}
+
+.project-detail-btn:hover {
+  background: var(--color-primary-dark);
+}
+
+.project-info {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-lg);
+}
+
+.project-title {
+  font-size: var(--font-size-xl);
+  font-weight: 800;
+  color: var(--color-text);
+}
+
+.project-meta {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
+}
+
+.project-meta-row {
+  display: grid;
+  grid-template-columns: 90px 1fr;
+  gap: var(--space-sm);
+}
+
+.project-meta-label {
+  font-weight: 700;
+  color: var(--color-label);
+}
+
+.project-meta-value {
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+
+/* ------------------------------------------------------------
+   8. Goals 섹션
+   ------------------------------------------------------------ */
+.goal-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--space-lg);
+}
+
+.goal-card {
+  background: var(--color-bg);
+  border-radius: var(--radius-lg);
+  padding: var(--space-xl);
+  border: 1px solid var(--color-border);
+  transition: transform var(--transition), box-shadow var(--transition);
+}
+
+.goal-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-soft);
+}
+
+.goal-card-step {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-circle);
+  background: var(--color-primary);
+  color: #fff;
+  font-weight: 700;
+  font-size: var(--font-size-sm);
+  margin-bottom: var(--space-md);
+}
+
+.goal-card-title {
+  font-size: var(--font-size-lg);
+  font-weight: 700;
+  color: var(--color-primary);
+  margin-bottom: var(--space-sm);
+}
+
+.goal-card-desc {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+  line-height: 1.75;
+}
+
+/* ------------------------------------------------------------
+   9. Contact & Footer
+   ------------------------------------------------------------ */
+.contact-box {
+  max-width: 560px;
+  margin: 0 auto;
+  text-align: center;
+  background: var(--color-bg-white);
+  padding: var(--space-3xl);
+  border-radius: var(--radius-lg);
+  box-shadow: var(--shadow-card);
+}
+
+.contact-message {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-xl);
+  line-height: 1.8;
+}
+
+.contact-links {
+  display: flex;
+  justify-content: center;
+  gap: var(--space-lg);
+  flex-wrap: wrap;
+}
+
+.contact-link {
+  padding: 0.65rem 1.6rem;
+  background: var(--color-primary);
+  color: #fff;
+  font-weight: 600;
+  border-radius: var(--radius-pill);
+  transition: background var(--transition);
+}
+
+.contact-link:hover {
+  background: var(--color-primary-dark);
+}
+
+.site-footer {
+  padding: var(--space-xl) 0 var(--space-2xl);
+  text-align: center;
+}
+
+.footer-text {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-muted);
+}
+
+/* 맨 위로 버튼 (우측 하단 고정) */
+.scroll-top {
+  position: fixed;
+  right: var(--space-xl);
+  bottom: var(--space-xl);
+  width: 48px;
+  height: 48px;
+  border-radius: var(--radius-circle);
+  background: var(--color-primary);
+  color: #fff;
+  font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow-card);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(12px);
+  transition: opacity var(--transition), visibility var(--transition), transform var(--transition);
+  z-index: 150;
+}
+
+.scroll-top.is-visible {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.scroll-top:hover {
+  background: var(--color-primary-dark);
+}
+
+/* ------------------------------------------------------------
+   10. 반응형
+   ------------------------------------------------------------ */
+@media (max-width: 900px) {
+  .about-layout,
+  .project-card {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-layout {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .hero-content {
+    text-align: center;
+  }
+}
+
+@media (max-width: 768px) {
+  .menu-toggle {
+    display: flex;
+  }
+
+  .site-nav {
+    position: fixed;
+    top: var(--header-height);
+    left: 0;
+    right: 0;
+    background: var(--color-bg-white);
+    border-bottom: 1px solid var(--color-border);
+    padding: var(--space-lg);
+    transform: translateY(-120%);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform var(--transition), opacity var(--transition);
+  }
+
+  .site-nav.is-open {
+    transform: translateY(0);
+    opacity: 1;
+    pointer-events: auto;
+  }
+
+  .nav-list {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: var(--space-md);
+  }
+
+  .section {
+    padding: var(--space-3xl) 0;
+  }
+
+  .section-heading {
+    margin-bottom: var(--space-2xl);
+  }
+
+  .info-row,
+  .project-meta-row {
+    grid-template-columns: 1fr;
+    gap: var(--space-xs);
+  }
+
+  .trait-tabs {
+    justify-content: center;
+  }
+}
